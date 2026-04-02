@@ -115,6 +115,7 @@ function CoverPage({ onEnter }: { onEnter: () => void }) {
 export default function Home() {
   const [showCover, setShowCover] = useState(true);
   const [search, setSearch] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const filtered = products.filter(
     (p) =>
@@ -136,6 +137,7 @@ export default function Home() {
               <div className="hidden md:block flex-1 max-w-sm">
                 <SearchBar value={search} onChange={setSearch} placeholder="Cari produk logam..." dark />
               </div>
+              {/* Desktop menu */}
               <div className="hidden md:flex items-center space-x-8 shrink-0">
                 <a href="#beranda" className="hover:text-yellow-400 transition">Beranda</a>
                 <a href="#produk" className="hover:text-yellow-400 transition">Produk</a>
@@ -143,11 +145,41 @@ export default function Home() {
                 <a href="#kontak" className="hover:text-yellow-400 transition">Kontak</a>
                 <InstallPWA />
               </div>
+              {/* Hamburger button - mobile only */}
+              <button
+                className="md:hidden p-2 rounded-lg hover:bg-gray-700 transition"
+                onClick={() => setMenuOpen((v) => !v)}
+                aria-label="Toggle menu"
+              >
+                {menuOpen ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
             </div>
-            {/* Search bar mobile - tampil di bawah navbar */}
+
+            {/* Search bar mobile */}
             <div className="md:hidden mt-3 pb-1">
               <SearchBar value={search} onChange={setSearch} placeholder="Cari produk logam..." dark />
             </div>
+
+            {/* Mobile dropdown menu */}
+            {menuOpen && (
+              <div className="md:hidden mt-3 pb-2 border-t border-gray-700 pt-3 flex flex-col gap-3">
+                <a href="#beranda" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Beranda</a>
+                <a href="#produk" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Produk</a>
+                <a href="#tentang" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Tentang</a>
+                <a href="#kontak" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Kontak</a>
+                <div className="pt-1">
+                  <InstallPWA />
+                </div>
+              </div>
+            )}
           </nav>
         </header>
 
