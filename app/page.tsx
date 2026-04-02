@@ -143,7 +143,7 @@ export default function Home() {
                 <a href="#produk" className="hover:text-yellow-400 transition">Produk</a>
                 <a href="#tentang" className="hover:text-yellow-400 transition">Tentang</a>
                 <a href="#kontak" className="hover:text-yellow-400 transition">Kontak</a>
-                <InstallPWA />
+                <InstallPWA showAlways />
               </div>
               {/* Hamburger button - mobile only */}
               <button
@@ -176,7 +176,7 @@ export default function Home() {
                 <a href="#tentang" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Tentang</a>
                 <a href="#kontak" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Kontak</a>
                 <div className="pt-1">
-                  <InstallPWA />
+                  <InstallPWA showAlways />
                 </div>
               </div>
             )}

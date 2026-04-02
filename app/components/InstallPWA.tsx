@@ -6,7 +6,7 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-export default function InstallPWA() {
+export default function InstallPWA({ showAlways = false }: { showAlways?: boolean }) {
   const [prompt, setPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
 
@@ -23,24 +23,29 @@ export default function InstallPWA() {
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
-  if (installed || !prompt) return null;
+  if (installed) return null;
+  // Kalau tidak ada prompt tapi showAlways = true, tampilkan tombol panduan
+  if (!prompt && !showAlways) return null;
 
   return (
     <button
       onClick={async () => {
-        if (!prompt) return;
-        await prompt.prompt();
-        const { outcome } = await prompt.userChoice;
-        if (outcome === "accepted") setInstalled(true);
-        setPrompt(null);
+        if (prompt) {
+          await prompt.prompt();
+          const { outcome } = await prompt.userChoice;
+          if (outcome === "accepted") setInstalled(true);
+          setPrompt(null);
+        } else {
+          alert("Untuk install: buka browser Chrome/Edge → klik ikon install di address bar, atau pilih 'Add to Home Screen' di menu browser.");
+        }
       }}
-      className="flex items-center gap-1.5 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold px-3 py-1.5 rounded-lg text-sm transition hover:scale-105"
+      className="w-full flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold px-4 py-2.5 rounded-lg text-sm transition"
       title="Install ke perangkat"
     >
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
       </svg>
-      Install App
+      Install Aplikasi
     </button>
   );
 }
