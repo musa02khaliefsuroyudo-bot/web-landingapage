@@ -146,8 +146,8 @@ export default function Home() {
           <nav className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between gap-6">
               <div className="text-2xl font-black bg-gradient-to-r from-gray-300 via-blue-400 to-blue-600 bg-clip-text text-transparent tracking-wider shrink-0">SINAR LOGAM</div>
-              {/* Search bar tengah navbar */}
-              <div className="flex-1 max-w-sm">
+              {/* Search bar tengah navbar - desktop only */}
+              <div className="hidden md:block flex-1 max-w-sm">
                 <SearchBar value={search} onChange={setSearch} placeholder="Cari produk logam..." dark />
               </div>
               <div className="hidden md:flex items-center space-x-8 shrink-0">
@@ -157,6 +157,10 @@ export default function Home() {
                 <a href="#kontak" className="hover:text-yellow-400 transition">Kontak</a>
                 <InstallPWA />
               </div>
+            </div>
+            {/* Search bar mobile - tampil di bawah navbar */}
+            <div className="md:hidden mt-3 pb-1">
+              <SearchBar value={search} onChange={setSearch} placeholder="Cari produk logam..." dark />
             </div>
           </nav>
         </header>

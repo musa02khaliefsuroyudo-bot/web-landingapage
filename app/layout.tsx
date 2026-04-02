@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import RegisterSW from "./components/RegisterSW";
 
 export const metadata: Metadata = {
   title: "Sinar Logam - Supplier Logam Terpercaya",
@@ -21,7 +22,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Sinar Logam" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <RegisterSW />
+      </body>
     </html>
   );
 }
