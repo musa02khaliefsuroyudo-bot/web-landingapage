@@ -83,11 +83,11 @@ function CoverPage({ onEnter }: { onEnter: () => void }) {
 
         <p className="text-blue-400 tracking-[0.4em] text-sm uppercase mb-3 font-medium">Selamat Datang di</p>
 
-        <h1 className="text-7xl md:text-9xl font-black tracking-widest text-white drop-shadow-lg leading-none">
-          <SplitText text="SINAR" delay={80} />
+        <h1 className="text-7xl md:text-9xl font-black tracking-widest text-white drop-shadow-lg leading-none animate-slideup">
+          SINAR
         </h1>
-        <h1 className="text-7xl md:text-9xl font-black tracking-widest text-white drop-shadow-lg leading-none mb-6">
-          <SplitText text="LOGAM" delay={80} />
+        <h1 className="text-7xl md:text-9xl font-black tracking-widest text-white drop-shadow-lg leading-none mb-6 animate-slideup2">
+          LOGAM
         </h1>
 
         <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-6" />
