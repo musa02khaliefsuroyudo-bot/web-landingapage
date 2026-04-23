@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import SplitText from "./components/SplitText";
 import ChatAI from "./components/ChatAI";
 import InstallPWA from "./components/InstallPWA";
 
@@ -8,6 +7,17 @@ const products = [
   { name: "Besi & Baja", desc: "Tersedia berbagai ukuran dan jenis besi baja berkualitas tinggi untuk proyek konstruksi dan industri Anda", icon: "🔩" },
   { name: "Logam Non-Ferrous", desc: "Aluminium, tembaga, kuningan premium untuk aplikasi khusus dengan standar kualitas internasional", icon: "⚙️" },
   { name: "Aksesoris Lengkap", desc: "Perlengkapan dan aksesoris pendukung untuk memenuhi semua kebutuhan proyek Anda", icon: "🛠️" },
+];
+
+const hollow4x8 = [
+  { label: "Merah Galvanis 1,6mm", price: "Rp 275.000", color: "bg-red-500" },
+  { label: "Ping Besi Hitam 1,2mm", price: "Rp 171.500", color: "bg-gray-800" },
+  { label: "Galvanis 1,2mm", price: "Rp 208.000", color: "bg-blue-400" },
+];
+
+const cnpItems = [
+  { label: "CNP 100 (real 9cm)", price: "Rp 155.000", color: "bg-green-600" },
+  { label: "CNP 12", price: "Rp 180.000", color: "bg-green-800" },
 ];
 
 function SearchBar({ value, onChange, placeholder = "Cari produk...", dark = false }: {
@@ -141,6 +151,7 @@ export default function Home() {
               <div className="hidden md:flex items-center space-x-8 shrink-0">
                 <a href="#beranda" className="hover:text-yellow-400 transition">Beranda</a>
                 <a href="#produk" className="hover:text-yellow-400 transition">Produk</a>
+                <a href="#katalog" className="hover:text-yellow-400 transition">Katalog</a>
                 <a href="#tentang" className="hover:text-yellow-400 transition">Tentang</a>
                 <a href="#kontak" className="hover:text-yellow-400 transition">Kontak</a>
                 <InstallPWA showAlways />
@@ -173,6 +184,7 @@ export default function Home() {
               <div className="md:hidden mt-3 pb-2 border-t border-gray-700 pt-3 flex flex-col gap-3">
                 <a href="#beranda" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Beranda</a>
                 <a href="#produk" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Produk</a>
+                <a href="#katalog" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Katalog</a>
                 <a href="#tentang" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Tentang</a>
                 <a href="#kontak" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition py-1">Kontak</a>
                 <div className="pt-1">
@@ -239,6 +251,47 @@ export default function Home() {
                     <div className="text-4xl mb-4">{p.icon}</div>
                     <h3 className="text-2xl font-bold mb-4 text-gray-800">{p.name}</h3>
                     <p className="text-gray-600">{p.desc}</p>
+                    {p.name === "Besi & Baja" && (
+                      <div className="border-t mt-4 pt-4">
+                        <p className="text-sm font-bold text-gray-700 mb-3">🏷️ Hollow 4x8 (Harga/Batang)</p>
+                        <div className="space-y-2">
+                          {hollow4x8.map((item) => (
+                            <div key={item.label} className="flex justify-between items-center py-1.5 px-3 bg-gray-50 rounded-lg">
+                              <span className="text-sm text-gray-700 flex items-center gap-1.5">
+                                <span className={`w-3 h-3 rounded-full ${item.color} inline-block shrink-0`}></span>
+                                {item.label}
+                              </span>
+                              <span className="text-sm font-bold text-gray-800 shrink-0 ml-2">{item.price}</span>
+                            </div>
+                          ))}
+                        </div>
+                        {/* CNP Section */}
+                        <p className="text-sm font-bold text-gray-700 mb-3 mt-4">🏷️ CNP (Harga/Batang)</p>
+                        <div className="space-y-2">
+                          {cnpItems.map((item) => (
+                            <div key={item.label} className="flex justify-between items-center py-1.5 px-3 bg-gray-50 rounded-lg">
+                              <span className="text-sm text-gray-700 flex items-center gap-1.5">
+                                <span className={`w-3 h-3 rounded-full ${item.color} inline-block shrink-0`}></span>
+                                {item.label}
+                              </span>
+                              <span className="text-sm font-bold text-gray-500 shrink-0 ml-2">{item.price}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <a
+                          href="https://wa.me/6285879524025?text=Halo%20Bu%20Wiwid%2C%20saya%20mau%20tanya%20stok%20Hollow%204x8"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white text-sm font-bold py-2 px-4 rounded-lg transition"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882l6.233-1.635A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.893 9.893 0 01-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374A9.861 9.861 0 012.106 12C2.106 6.58 6.58 2.106 12 2.106S21.894 6.58 21.894 12 17.42 21.894 12 21.894z"/>
+                          </svg>
+                          Pesan Sekarang
+                        </a>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -248,6 +301,36 @@ export default function Home() {
                 <p className="text-lg">Produk tidak ditemukan. Coba kata kunci lain.</p>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Katalog Section */}
+        <section id="katalog" className="py-20 bg-white">
+          <div className="container mx-auto px-6">
+            <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">Katalog Harga</h2>
+            <p className="text-center text-gray-500 mb-10">Daftar harga besi hollow & galvanis per batang. Harga dapat berubah sewaktu-waktu.</p>
+            <div className="max-w-2xl mx-auto">
+              <img
+                src="/katalog.jpg"
+                alt="Katalog Harga Sinar Logam - Besi Hollow & Galvanis"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-gray-400 text-sm mt-4">* Harga dapat berubah sewaktu-waktu. Hubungi kami untuk info terbaru.</p>
+              <div className="text-center mt-6">
+                <a
+                  href="https://wa.me/6285879524025?text=Halo%20Bu%20Wiwid%2C%20saya%20ingin%20tanya%20harga%20besi%20hollow"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-8 rounded-lg transition transform hover:scale-105"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882l6.233-1.635A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.893 9.893 0 01-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374A9.861 9.861 0 012.106 12C2.106 6.58 6.58 2.106 12 2.106S21.894 6.58 21.894 12 17.42 21.894 12 21.894z"/>
+                  </svg>
+                  Tanya Harga via WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -315,7 +398,18 @@ export default function Home() {
                 <div className="text-center">
                   <div className="text-3xl mb-3">📞</div>
                   <h3 className="font-bold mb-2">Telepon</h3>
-                  <p className="text-gray-300">+62 858-7952-4025</p>
+                  <a
+                    href="https://wa.me/6285879524025"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-400 hover:text-green-300 transition font-medium flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882l6.233-1.635A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.893 9.893 0 01-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374A9.861 9.861 0 012.106 12C2.106 6.58 6.58 2.106 12 2.106S21.894 6.58 21.894 12 17.42 21.894 12 21.894z"/>
+                    </svg>
+                    +62 858-7952-4025
+                  </a>
                   <p className="text-gray-400 text-sm mt-1">(Wiwid Widiyati)</p>
                 </div>
                 <div className="text-center">
